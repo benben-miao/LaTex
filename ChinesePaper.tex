@@ -1,0 +1,285 @@
+\documentclass{ctexart} % chinese tex article 
+% 导言区 加载一些宏包，文章作者，预处理的一些命令
+\usepackage{listings}
+\usepackage{clrscode}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{caption,bicaption}
+\usepackage{balance}
+\balance
+
+% 设置双语图解
+\usepackage{caption}
+\usepackage{bicaption}
+\DeclareCaptionOption{english}[]{
+    \renewcommand\figurename{Fig}
+    \renewcommand\tablename{Table}
+}
+\captionsetup[bi-second]{english}
+
+\bibliographystyle{plain}
+
+% 摘要格式
+\newcommand{\enabstractname}{Abstract}
+\newcommand{\cnabstractname}{摘要}
+\newenvironment{enabstract}{%
+  \par\small
+  \noindent\mbox{}\hfill{\bfseries \enabstractname}\hfill\mbox{}\par
+  \vskip 2.5ex}{\par\vskip 2.5ex
+}
+\newenvironment{cnabstract}{%
+  \par\small
+  \noindent\mbox{}\hfill{\bfseries \cnabstractname}\hfill\mbox{}\par
+  \vskip 2.5ex}{\par\vskip 2.5ex
+}
+
+% 标题，作者，时间
+\title{一起学习 \LaTeX}
+\author{steven \\steven@163.com \and jobs \\ jobs@apple.com}
+\date{\today{}}
+
+\begin{document}
+    % 正文区
+    \maketitle
+    \tableofcontents
+    \clearpage
+
+    \begin{cnabstract} % 要预先定义环境，见导言区
+        这是一篇快速入门\LaTeX{}的文章。简单介绍了\LaTeX{}使用的相关信息。
+
+        \textbf{关键字: } 关键字1，关键字2，关键字3
+    \end{cnabstract}
+
+    \begin{enabstract}
+        English abstract
+        
+        \textbf{Keywords:} keyword1, keyword2, keyword3
+    \end{enabstract}
+
+    Hello, World.有可能会迟到，但绝不会缺席。
+
+    Hello world. Hello \TeX .
+
+    章， 节， 小节
+
+    \section{文章结构层次}
+        \subsection{划分文章的章、节}
+            \subsubsection{article/ctexart}
+            根据文档类型不同，有\emph{report, book, article(ctexart), letter}等不同类型，这些类型，所拥有的文档结构是不同的，例如：\emph{book，report}类型，它们还拥有chapter乃至part等文档结构。
+
+            今天我们的学习目的是排版文章(paper)，用到的文档类型基本就是\emph{article, ctexart}这两种类型，在这两种类型下，有以下命令划分文章的结构层次：section, subsection, subsubsection, paragraph, subparagraph。
+
+            
+    \section{段落与文本环境}
+        \subsection{正文文本}  
+        还是强调分段的问题。
+            \subsubsection{分段}
+                这是第一段文字。
+
+                这是第二段文字。
+                这还是属于第二段文字。
+
+                所以必须输入\emph{两个回车}才能分段。 
+            \subsubsection{一些转译字符}
+            与其他标记语言一样，也有自己的转译字符，如：\#, \textbackslash, \S, \copyright, \textregistered 等。这些都可以查找资料轻易获得。
+        \subsection{列表}
+            \LaTeX 标准文档提供了三种列表环境，分别是：不编号的itemize, 编号的enumerate, 使用关键字的description。
+            \subsubsection{itemize}
+                \begin{itemize}
+                    \item itemize
+                    \item enumerate
+                    \item description
+                \end{itemize}
+            \subsubsection{enumerate}
+                \begin{enumerate}
+                    \item itemize
+                    \item enumerate
+                    \item description
+                \end{enumerate}
+            \subsubsection{description}
+                \begin{description}
+                    \item[不编号] itemize
+                    \item[编号] enumerate
+                    \item[描述] description  
+                \end{description}
+                当然，以上三种环境都可以独立或者相互嵌套使用。
+        \subsection{抄入和代码环境}
+        排版计算机程序源代码时，需要字符等宽，或者需要使用打字机字体，就需要抄入功能。
+            \subsubsection{短代码}
+                \verb|#include <stdio.h>|
+            \subsubsection{长代码}
+                \begin{verbatim}
+                    #include <stdio.h>
+                    int main(void){
+                        printf("hello world.\n");
+                        return 0;
+                    }
+                \end{verbatim}
+                可以使用listings等宏包做语法高亮。
+                \begin{lstlisting}[language=C]
+                    #include <stdio.h>
+                    int main(void){
+                        printf("hello world.\n");
+                        return 0;
+                    }
+                \end{lstlisting}
+            \subsubsection{算法结构}
+                对于算法结构的排版，有一些对应的宏包来帮助我们排版，提供解决方案。例如：clrscode, algorithm2e, algorithmicx等。现在我们用clrscode宏包排版一个算法\footnote{归并排序，一种比较高效的排序算法。}。
+                \begin{codebox}
+                    \Procname{$\proc{Merge-Sort}(A,p,r)$}
+                    \li \If $p<r$
+                    \li \Then $q \gets \lfloor(p+r)/2\rfloor$
+                    \li $\proc{Merge-Sort}(A,p,q)$
+                    \li $\proc{Merge-Sort}(A,p+1,r)$
+                    \li $\proc{Merge-Sort}(A,p,q,r)$
+                        \End
+                \end{codebox}
+        \subsection{注脚}
+        欧几里得\footnote{欧几里得，约公元前 330--275 年，著作：《几何原本》}是一名伟大的数学家。
+    \section{数学公式}
+    \emph{强调：凡是输入数学公式的地方，必须都在数学模式下输入，包括单个符号，例如：$\pi, n$。}
+        \subsection{数学结构}
+            数学结构有：上下标，上下划线与花括号，分式，根式，矩阵。
+        \subsection{数学符号}
+            数学符号有：数字字母，普通符号，二元运算符，二元关系符，括号，标点等。
+        \subsection{一些公式举例}
+            \subsubsection{行内公式}
+            爱因斯坦提出的质能方程是：$E=MC^2$。
+            \subsubsection{显示公式}
+            公式单独显示在一行。例如：
+
+            对于二元一次方程，其求根公式为：
+            \[ 
+                x_{1,2} = \frac{-b \pm \sqrt[2]{b^2-4ac}}{2a}    
+            \] % $$  $$
+            也可对公式进行编号，那就需要使用\emph{equation}环境例如：
+
+            如果两物体质量分别为$m_1$和$m_2$，之间距离为$r$，则根据牛顿的万有引力公式有:
+            \begin{equation}
+                F_1 = F_2 = \frac{Gm_1m_2}{r^2}
+            \end{equation}
+            \begin{equation}
+                x_{1,2} = \frac{-b \pm \sqrt[2]{b^2-4ac}}{2a} 
+            \end{equation}
+
+            \subsubsection{复杂的公式}
+            对于这类公式，我们一般需要使用amsmath宏包帮助\footnote{切记不要使用\emph{eqnarray}环境}。例如：
+            \emph{稍微复杂的数学公式：}牛顿-莱布尼茨公式（Newton-Leibniz formula），通常也被称为微积分基本定理，揭示了定积分与被积函数的原函数或者不定积分之间的联系。其定义为:
+            \begin{equation}
+                \int_a^b f(x) \mathrm{d}x = F(x)|_a^b = F(a) - F(b)
+            \end{equation}
+            \subsubsection{排版矩阵}
+                \emph{矩阵-单位阵：}
+                \[
+                    \mathbf{E}=\begin{bmatrix}
+                        1 & 0 & \cdots & 0 \\
+                        0 & 1 & \cdots & 0\\
+                        \vdots & \vdots & \ddots & \vdots\\
+                        0 & 0 & \cdots & 1\\
+                    \end{bmatrix}    
+                \]
+                这里提供两个公式编辑的辅助工具，顺便介绍以下超链接\footnote{需要导入 hyperref 宏包}的使用：\url{www.latexlive.com}，\url{https://latex.codecogs.com/eqneditor/editor.php}
+        \subsection{科技功能}
+            \subsubsection{单位}  
+            各种单位，使用\emph{siunitx}宏包，这里提供了一揽子解决方案。\\
+            科学记数法：\num{-1.23e45}
+            光的速度为：\SI{299752458}{m/s}\\
+            不同行数据按小数点对齐：
+            \begin{tabular}{|S|}
+                \hline
+                -234234\\
+                \hline
+                13.45\\ 
+                \hline
+                .9e37km\\
+                \hline
+            \end{tabular}
+    \section{图表和浮动体环境}
+        \subsection{表格} 
+        在LaTex中，可用\emph{tabular}或\emph{array}画表格，但通常使用前者，后者主要排版包含数学符号的公式，如复杂矩阵等。
+            \subsubsection{一些表格示例}
+            基本表格，演示文字在表格里的对齐：\\
+            \begin{tabular}{|l|c|r|}
+                \hline
+                left & center & right \\
+                \hline
+                文本左对齐 & 文本居中对齐 & 文本右对齐\\
+                \hline
+            \end{tabular}
+
+            这是对三线表的描述内容，详情见表\ref{threeLineTable}
+            这是对普通表格的描述内容，详情见表\ref{Love}。
+
+            常见的论文表格也不是这样的，表格整体都是居中对齐的，这时候就要用到浮动体。
+
+            \begin{table}[h]
+                \centering
+                \caption{表格的标题}
+                \label{Love}
+                \begin{tabular}{cccc}
+                    \hline
+                    \bfseries Do & \bfseries You & \bfseries Love & \bfseries Me\\
+                    \hline
+                    Yestoday & Yes & Yes & Yes\\
+                    Today & Of Course & Of Course & Of Course\\
+                    Tomorrow & Definitely Yes & Definitely Yes & Definitely Yes\\
+                    \hline
+                \end{tabular}
+            \end{table}
+
+            \emph{论文常用的三线表：}三线表需要使用\emph{booktabs}宏包。\\
+
+            \begin{table}[htb] % here, top, bottom, page
+                \centering
+                \caption{这是一个三线表}
+                \label{threeLineTable}
+                \begin{tabular}{cccc}
+                    \toprule
+                    \bfseries Do & \bfseries You & \bfseries Love & \bfseries Me\\
+                    \midrule
+                    Yestoday & Yes & Yes & Yes\\
+                    Today & Of Course & Of Course & Of Course\\
+                    Tomorrow & Definitely Yes & Definitely Yes & Definitely Yes\\
+                    \bottomrule
+                \end{tabular}
+            \end{table}
+        \subsection{图片}
+        在论文里插入图片需要使用 \emph{graphicx} 宏包里的\emph{includegraphics}命令，xelatex支持的格式有：\emph{EPS, PDF, PNG, JPEG, BMP}。
+            \subsubsection{插入图片示例}
+            我们即将要插入的图片是 \TeX 的吉祥物，见图\ref{fig-lion}，一只小狮子\ref{fig-lion2}。通常，插入图像也同插入表格一样，需要使用到浮动体环境。
+            \begin{figure}[htbp]
+                \centering
+                \includegraphics[scale=0.5]{ctanlion.eps}
+                \caption[小狮子]{\TeX 的吉祥物--小狮子，对于这张图片的描述可以是非常长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长的。}
+                \label{fig-lion}
+            \end{figure}
+            我们可以使用\emph{caption,bicaption}宏包对浮动体文字做格式等调整，例如使用\emph{bicaption}命令排版双语图解。
+            \begin{figure}[htbp]
+                \centering
+                \includegraphics[scale=0.5]{ctanlion.eps}
+                
+                \bicaption{\TeX 的吉祥物--小狮子}{The mascot of \TeX{} is a lion.}
+                
+                \label{fig-lion2}
+            \end{figure}
+    \section{参考文献}
+        \subsection{直接引用}
+        在文章 \emph{参考文献} 部分将本文所有引用的文献列出来，然后引用，这个比较麻烦，需要自己调整字体，引用风格啥的。
+        \subsection{BibTex文献数据库}
+
+        此处又是一条引用\cite{王塞博2014无线传感器网络综述}。
+
+        这是引用处，需要引用文献\cite{孙其博2010物联网}
+
+        字面意思说是一个数据库，其实简单来说，就是一个键值对格式的文件，其后缀为\emph{.bib}，放到与\emph{.tex}文件所在的路径下即可。其使用方法也很简单，具体步骤如下:
+        \begin{enumerate}
+            \item 建立.bib文件
+            \item 在.tex(即此文件)中使用
+        \end{enumerate}
+
+        \nocite{*}
+        \bibliography{baidu}
+\end{document}
